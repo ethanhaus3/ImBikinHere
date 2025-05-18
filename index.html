@@ -16,10 +16,24 @@
 </head>
 <body>
     <h1>🚴🏼‍♀️ Bikewatching</h1>
+    <header>
+        <label style="margin-left: auto">
+            Filter by time:
+            <input id="#time-slider" type="range" min="-1" max="1440" value="-1" step="1" />
+            <span style="display: block">
+                <time id="#selected-time" style="display: none;"></time>
+                <em id="#any-time" style="display: block; color: #888; font-style: italic">(any time)</em>
+            </span>
+        </label>
+    </header>
+    
     <h2>Gives a time specific log of bike traffic in Boston</h2>
 
     <div id="map">
         <svg></svg>
     </div>
+
+    
+      
 </body>
 </html>
