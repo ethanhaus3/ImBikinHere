@@ -29,7 +29,7 @@ const map = new mapboxgl.Map({
 
 map.on('load', async () => {
     const lineStyle = {
-        'line-color': 'red',
+        'line-color': 'green',
         'line-width': 1.5,
         'line-opacity': 0.5,
       };

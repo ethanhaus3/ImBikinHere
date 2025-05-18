@@ -36,6 +36,8 @@ h1, h2 {
     stroke: white;
     stroke-width: 1px;
     pointer-events: auto;
+
+    fill: var(--color);
 }
 
 header {
@@ -58,4 +60,45 @@ header {
     var(--color-departures) calc(100% * var(--departure-ratio)),
     var(--color-arrivals)
   );
+  
 }
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-family: sans-serif;
+  }
+  
+  .legend::before {
+    content: "Legend:";
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+  
+  .legend > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .legend > div::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    /* mix the two colors based on the inline --departure-ratio */
+    background: color-mix(
+      in oklch,
+      var(--color-departures) calc(100% * var(--departure-ratio)),
+      var(--color-arrivals)
+    );
+  }
+  
+  circle {
+    pointer-events: auto;
+    /*  */
+  }
