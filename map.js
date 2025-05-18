@@ -101,10 +101,13 @@ map.on('load', async () => {
     .enter()
     .append('circle')
     .attr("r", 5) // Radius of the circle
-    .attr('fill', 'steelblue') // Circle fill color
+    .attr('fill', 'steelblue')
     .attr('stroke', 'white') // Circle border color
     .attr('stroke-width', 1) // Circle border thickness
     .attr('opacity', 0.8) // Circle opacity
+    .style("--departure-ratio", (d) =>
+        stationFlow(d.departures / d.totalTraffic)
+    )
     .each(function (d) {
         // Add <title> for browser tooltips
         d3.select(this)
@@ -165,27 +168,38 @@ map.on('load', async () => {
         return station;
     });
 
+    
+
     const radiusScale = d3
         .scaleSqrt()
         .domain([0, d3.max(stations, (d) => d.totalTraffic)])
         .range([0, 25]);
 
-    circles.attr("r", (d) => radiusScale(d.totalTraffic));
+    
+    circles
+        .data(stations, (d) => d.short_name)
+        .attr("r", (d) => radiusScale(d.totalTraffic))
+        .select('title') // update the existing title element
+        .text(
+        (d) => `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`
+    );
 
 
-    const timeSlider = document.getElementById("#time-slider");
-    const selectedTime = document.getElementById("#selected-time");
-    const anyTimeLabel = document.getElementById("#any-time");
+    const timeSlider = document.getElementById("time-slider");
+    const selectedTime = document.getElementById("selected-time");
+    const anyTimeLabel = document.getElementById("any-time");
 
     function updateTimeDisplay() {
         let timeFilter = Number(timeSlider.value); // Get slider value
     
         if (timeFilter === -1) {
           selectedTime.textContent = ""; // Clear time display
+          selectedTime.style.display = "none";
           anyTimeLabel.style.display = "block"; // Show "(any time)"
         } else {
           console.log("showing specific time");
           selectedTime.textContent = formatTime(timeFilter); // Display formatted time
+          selectedTime.style.display = "inline";
           anyTimeLabel.style.display = "none"; // Hide "(any time)"
         }
     
@@ -204,23 +218,13 @@ map.on('load', async () => {
         // Update the scatterplot by adjusting the radius of circles
         circles
           .data(filteredStations, (d) => d.short_name)
-          //.join("circle") // Ensure the data is bound correctly
+          .join("circle") // Ensure the data is bound correctly
           .attr("r", (d) => radiusScale(d.totalTraffic)) // Update circle sizes
           .style("--departure-ratio", (d) =>
             stationFlow(d.departures / d.totalTraffic)
           );
       }
 
-    
-    
-    
-
-    
-    
-
-    
-
-    
   });
 
   function getCoords(station) {

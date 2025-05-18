@@ -11,7 +11,7 @@
     href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
     rel="stylesheet"
     />
-    <script src="map.js" type="module"></script>
+    
     <link rel="stylesheet" href="map.css"/>
 </head>
 <body>
@@ -19,10 +19,10 @@
     <header>
         <label style="margin-left: auto">
             Filter by time:
-            <input id="#time-slider" type="range" min="-1" max="1440" value="-1" step="1" />
+            <input id="time-slider" type="range" min="-1" max="1440" value="-1" step="1" />
             <span style="display: block">
-                <time id="#selected-time" style="display: none;"></time>
-                <em id="#any-time" style="display: block; color: #888; font-style: italic">(any time)</em>
+                <time id="selected-time" style="display: none;"></time>
+                <em id="any-time" style="display: block; color: #888; font-style: italic">(any time)</em>
             </span>
         </label>
     </header>
@@ -32,6 +32,8 @@
     <div id="map">
         <svg></svg>
     </div>
+
+    <script src="map.js" type="module"></script>
 
     
       

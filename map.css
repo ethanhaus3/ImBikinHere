@@ -9,6 +9,12 @@ body {
   align-items: center; /* Center vertically */
 }
 
+h1, h2 {
+    text-align: left;
+    width: 100%; /* make sure headers take full width so left-align works */
+    margin-left: 0; /* remove any left margin */
+}
+
 #map {
   width: 100%; /* Adjust width to your desired size */
   height: 100%; /* Adjust height to your desired size */
@@ -37,4 +43,19 @@ header {
     gap: 1em;
     align-items: baseline;
     margin-left: auto;
+}
+
+#time-slider {
+    width: 400px; /* or 100%, or any value you want */
+  }
+
+#map circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
 }
